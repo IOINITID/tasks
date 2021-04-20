@@ -2,13 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface ITask {
-  title: string;
+  id: string;
+  value: string;
+  complete: boolean;
 }
 
-const Task = ({ title }: ITask) => {
+const Task = ({ value }: ITask) => {
   return (
     <View style={styles.container}>
-      <Text>{title}</Text>
+      <Text>{value}</Text>
     </View>
   );
 };

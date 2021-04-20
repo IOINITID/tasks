@@ -7,7 +7,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <StatusBar hidden />
-      <Task title="Some task..." />
+      <Task id="1" value="Some task..." complete={false} />
     </View>
   );
 };
