@@ -1,25 +1,32 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, TextInput, View } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  TextInput,
+  TouchableNativeFeedback,
+  View,
+} from "react-native";
 import Task from "../task/task";
 
 const App = () => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <View style={styles.container}>
-      <StatusBar hidden />
-      <Task id="1" value="Some task..." complete={false} />
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textInput}
-          value={inputValue}
-          onChangeText={(text) => setInputValue(text)}
-          placeholder="Add some task..."
-        />
+    <TouchableNativeFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <StatusBar hidden />
+        <Task id="1" value="Some task..." complete={false} />
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.textInput}
+            value={inputValue}
+            onChangeText={(text) => setInputValue(text)}
+            placeholder="Add some task..."
+          />
+        </View>
       </View>
-    </View>
+    </TouchableNativeFeedback>
   );
 };
 
