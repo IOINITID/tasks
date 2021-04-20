@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
   Keyboard,
@@ -8,21 +8,41 @@ import {
   View,
 } from "react-native";
 import Task from "../task/task";
+import { useDispatchTyped } from "../../hooks";
+import { addTask, selectTasks } from "../../features/tasks/tasksSlice";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatchTyped();
+  const tasks = useSelector(selectTasks);
+
+  useEffect(() => {}, []);
 
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <StatusBar hidden />
-        <Task id="1" value="Some task..." complete={false} />
+        {tasks.map((task) => {
+          return (
+            <Task
+              key={task.id}
+              id={task.id}
+              value={task.value}
+              complete={task.complete}
+            />
+          );
+        })}
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
             value={inputValue}
             onChangeText={(text) => setInputValue(text)}
             placeholder="Add some task..."
+            onSubmitEditing={() => {
+              dispatch(addTask(inputValue));
+              setInputValue("");
+            }}
           />
         </View>
       </View>
