@@ -19,6 +19,11 @@ const App = () => {
 
   useEffect(() => {}, []);
 
+  const addTaskHandler = () => {
+    dispatch(addTask(inputValue));
+    setInputValue("");
+  };
+
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -37,12 +42,11 @@ const App = () => {
           <TextInput
             style={styles.textInput}
             value={inputValue}
+            keyboardType="default"
+            keyboardAppearance="default"
             onChangeText={(text) => setInputValue(text)}
             placeholder="Add some task..."
-            onSubmitEditing={() => {
-              dispatch(addTask(inputValue));
-              setInputValue("");
-            }}
+            onSubmitEditing={addTaskHandler}
           />
         </View>
       </View>
