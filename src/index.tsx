@@ -1,3 +1,4 @@
+import { registerRootComponent } from "expo";
 import React from "react";
 import { Provider } from "react-redux";
 import App from "./components/app/app";
@@ -11,4 +12,4 @@ const Root = () => {
   );
 };
 
-export default Root;
+export default registerRootComponent(Root);
