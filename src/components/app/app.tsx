@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
+  Button,
   Keyboard,
   StyleSheet,
+  Text,
   TextInput,
   TouchableNativeFeedback,
+  TouchableOpacity,
   View,
 } from "react-native";
-import Task from "../task/task";
-import { useDispatchTyped } from "../../hooks";
+import { useDispatchTyped, useSelectorTyped } from "../../hooks";
 import { addTask, selectTasks } from "../../features/tasks/tasksSlice";
-import { useSelector } from "react-redux";
+import TaskList from "../task-list/task-list";
 
 const App = () => {
   const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatchTyped();
-  const tasks = useSelector(selectTasks);
-
-  useEffect(() => {}, []);
+  const tasks = useSelectorTyped(selectTasks);
 
   const addTaskHandler = () => {
     dispatch(addTask(inputValue));
@@ -26,28 +26,67 @@ const App = () => {
 
   return (
     <TouchableNativeFeedback onPress={Keyboard.dismiss}>
-      <View style={styles.container}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: "#ffffff",
+          alignItems: "center",
+          justifyContent: "space-between",
+          margin: 16,
+        }}
+      >
         <StatusBar hidden />
-        {tasks.map((task) => {
-          return (
-            <Task
-              key={task.id}
-              id={task.id}
-              value={task.value}
-              complete={task.complete}
-            />
-          );
-        })}
-        <View style={styles.inputContainer}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "lightblue",
+            flexDirection: "row",
+            borderRadius: 8,
+            marginBottom: 16,
+          }}
+        >
+          <TaskList tasks={tasks} />
+        </View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
           <TextInput
-            style={styles.textInput}
+            style={{
+              flexGrow: 1,
+              padding: 24,
+              borderStyle: "solid",
+              borderWidth: 1,
+              borderColor: "#0080ff",
+              borderRadius: 8,
+              marginRight: 16,
+            }}
             value={inputValue}
             keyboardType="default"
             keyboardAppearance="default"
             onChangeText={(text) => setInputValue(text)}
             placeholder="Add some task..."
-            onSubmitEditing={addTaskHandler}
           />
+          <TouchableOpacity onPress={addTaskHandler}>
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 24,
+                borderRadius: 8,
+                borderStyle: "solid",
+                borderWidth: 1,
+                borderColor: "tomato",
+                backgroundColor: "tomato",
+              }}
+            >
+              <Text style={{ fontWeight: "700", color: "#ffffff" }}>ADD</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableNativeFeedback>
@@ -55,20 +94,7 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffffff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputContainer: {
-    width: "100%",
-  },
-  textInput: {
-    width: "100%",
-    padding: 20,
-    backgroundColor: "#f5f5f5",
-  },
+  container: {},
 });
 
 export default App;
