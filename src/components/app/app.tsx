@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import {
-  Button,
   Keyboard,
   StyleSheet,
   Text,
@@ -38,8 +37,8 @@ const App = () => {
         <StatusBar hidden />
         <View
           style={{
-            flex: 1,
-            backgroundColor: "lightblue",
+            display: "flex",
+            flexShrink: 1,
             flexDirection: "row",
             borderRadius: 8,
             marginBottom: 16,

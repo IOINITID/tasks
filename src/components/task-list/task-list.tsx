@@ -9,7 +9,7 @@ interface ITaskList {
 
 const TaskList = ({ tasks }: ITaskList) => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={{ padding: 8 }}>
       {tasks.map((task) => {
         return (
           <Task
@@ -25,9 +25,7 @@ const TaskList = ({ tasks }: ITaskList) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 8,
-  },
+  container: {},
 });
 
 export default TaskList;
